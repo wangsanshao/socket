@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #send {
+      position: fixed;
+      bottom: 100px;
+      left: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div>测试页面</div>
+  <ul id="message"></ul>
+  <div id="send">
+    <input id="input" autocomplete="off"/><button type="button" id="btn">发送</button>
+  </div>
+  <script src="https://cdn.socket.io/4.0.2/socket.io.min.js"></script>
+  <script>
+    const scoket = io();
+    const btn = document.getElementById('btn');
+    btn.addEventListener('click', () => {
+      const input = document.getElementById('input');
+      if(input.value) {
+        scoket.emit('chat message', input.value);
+        input.value = ''
+      }
+    })
+  </script>
+</body>
+</html>
