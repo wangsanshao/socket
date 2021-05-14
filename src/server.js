@@ -27,7 +27,7 @@ const io = new Server(httpServer);
 io.on('connection', (socket) => {
   console.log('一个用户连接到服务');
   socket.on('chat message', (msg) => {
-    console.log('msg', msg);
+    socket.emit('chat message', msg);
   })
 
   socket.on('disconnect', () => {

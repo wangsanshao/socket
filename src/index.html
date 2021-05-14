@@ -14,7 +14,7 @@
   </style>
 </head>
 <body>
-  <div>测试页面</div>
+  <div>双向通信</div>
   <ul id="message"></ul>
   <div id="send">
     <input id="input" autocomplete="off"/><button type="button" id="btn">发送</button>
@@ -23,12 +23,20 @@
   <script>
     const scoket = io();
     const btn = document.getElementById('btn');
+    const messageBox = document.getElementById('message');
     btn.addEventListener('click', () => {
       const input = document.getElementById('input');
       if(input.value) {
         scoket.emit('chat message', input.value);
         input.value = ''
       }
+    })
+
+    scoket.on('chat message', (msg) => {
+      const item = document.createElement('li');
+      item.textContent = msg;
+      messageBox.appendChild(item);
+      window.screenTop(0, document.body.scrollHeight);
     })
   </script>
 </body>
